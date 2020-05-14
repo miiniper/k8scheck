@@ -115,11 +115,12 @@ func (s *Service) accessLog(inner http.Handler) http.Handler {
 	})
 }
 
+func (s *Service) initHandler() {
+	s.router.GET("/ok", s.Ok)
+	s.router.GET("/pod", s.PodsCheck)
+}
+
 func (s *Service) Ok(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
 	w.Write([]byte("ok"))
 	return
-}
-
-func (s *Service) initHandler() {
-	s.router.GET("/ok", s.Ok)
 }
