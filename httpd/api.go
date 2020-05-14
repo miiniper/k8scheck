@@ -53,7 +53,7 @@ func (s *Service) PodsCheck(w http.ResponseWriter, r *http.Request, ps httproute
 
 func NotReady(pod v1.Pod, clusterName string) {
 	if pod.Status.ContainerStatuses[0].Ready != true {
-		msg := fmt.Sprintf("cluster :%s\n ,ns: %s,pod: %s\n is notReady", clusterName, pod.ObjectMeta.Namespace, pod.ObjectMeta.Name)
+		msg := fmt.Sprintf("cluster :%s\n ,ns: %s\n,pod: %s\n is notReady", clusterName, pod.ObjectMeta.Namespace, pod.ObjectMeta.Name)
 		tgmsg_bot.SendMsg(msg)
 	}
 }
