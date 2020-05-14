@@ -28,6 +28,8 @@ func main() {
 		loges.Loges.Info("Config file changed: ", zap.Any("", e.Name))
 	})
 
+	httpd.Init()
+
 	service, err := httpd.New(viper.GetString("server.ip"))
 	if err != nil {
 		panic(err)

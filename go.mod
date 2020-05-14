@@ -7,7 +7,7 @@ require (
 	github.com/imdario/mergo v0.3.9 // indirect
 	github.com/julienschmidt/httprouter v1.2.0
 	github.com/miiniper/loges v0.0.0-20200509053933-a4ef73281bc3
-	github.com/miiniper/tgmsg_bot v0.0.0-20200509095153-b7b30e17c2df
+	github.com/miiniper/tgmsg_bot v0.0.0-20200514092312-222a9140abbd
 	github.com/spf13/viper v1.7.0
 	go.uber.org/zap v1.15.0
 	gopkg.in/mgo.v2 v2.0.0-20190816093944-a6b53ec6cb22

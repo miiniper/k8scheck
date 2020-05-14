@@ -34,28 +34,29 @@ type HttpStatus struct {
 	Data interface{} `json:"data"`
 }
 
-func (s *Service) PodsCheck(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
-	ClusterCfgs := GetConfig()
-	for _, ClusterCfg := range ClusterCfgs {
-		//	fmt.Println(ClusterCfg)
-		cli, _ := K8sCli(ClusterCfg.ConfigFile)
+var Bot tgmsg_bot.Bot
+var ClusterCfgs K8sConfigs
 
+func Init() {
+	Bot = tgmsg_bot.NewBot("msg")
+	ClusterCfgs = GetConfig()
+}
+
+func (s *Service) PodsCheck(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	for _, ClusterCfg := range ClusterCfgs {
+		cli, _ := K8sCli(ClusterCfg.ConfigFile)
 		pods, _ := GetPod(cli)
 
 		for _, j := range pods.Items {
-			go NotReady(j, ClusterCfg.ClusterName)
+			if j.Status.ContainerStatuses[0].Ready != true {
+				msg := fmt.Sprintf("cluster :%s\n ns: %s\n pod: %s\n is notReady", ClusterCfg.ClusterName, j.ObjectMeta.Namespace, j.ObjectMeta.Name)
+				Bot.SendMsg(msg)
+			}
 		}
 
 	}
 	w.Write([]byte("ok"))
 	return
-}
-
-func NotReady(pod v1.Pod, clusterName string) {
-	if pod.Status.ContainerStatuses[0].Ready != true {
-		msg := fmt.Sprintf("cluster :%s\n ,ns: %s\n,pod: %s\n is notReady", clusterName, pod.ObjectMeta.Namespace, pod.ObjectMeta.Name)
-		tgmsg_bot.SendMsg(msg)
-	}
 }
 
 func K8sCli(k8sCfg string) (*kubernetes.Clientset, error) {

@@ -171,8 +171,8 @@ github.com/matttproud/golang_protobuf_extensions v1.0.1/go.mod h1:D8He9yQNgCq6Z5
 github.com/miekg/dns v1.0.14/go.mod h1:W1PPwlIAgtquWBMBEV9nkV9Cazfe8ScdGz/Lj7v3Nrg=
 github.com/miiniper/loges v0.0.0-20200509053933-a4ef73281bc3 h1:2AajLujrWoUvuq6hGchR0aipJ/Z5ZGeAVbc/NmYIRCg=
 github.com/miiniper/loges v0.0.0-20200509053933-a4ef73281bc3/go.mod h1:YYoUQKsRLri3ZNOuIc44F2ZRAA0qhNMNpiLhTspKshI=
-github.com/miiniper/tgmsg_bot v0.0.0-20200509095153-b7b30e17c2df h1:kj0pNunBgsbfGMDZeO3pH5hM+NPuu+QplVfDWmVvU6E=
-github.com/miiniper/tgmsg_bot v0.0.0-20200509095153-b7b30e17c2df/go.mod h1:Tfds+F3I24WEWxdYxnoYqZfuLCO1+bhB8ltjC2YucoM=
+github.com/miiniper/tgmsg_bot v0.0.0-20200514092312-222a9140abbd h1:TKp8cpJo2G9GJX3Hlxs47vonCnNesNKDPK3cL7Emt0Y=
+github.com/miiniper/tgmsg_bot v0.0.0-20200514092312-222a9140abbd/go.mod h1:Tfds+F3I24WEWxdYxnoYqZfuLCO1+bhB8ltjC2YucoM=
 github.com/mitchellh/cli v1.0.0/go.mod h1:hNIlj7HEI86fIcpObd7a0FcrxTWetlwJDGcceTlRvqc=
 github.com/mitchellh/go-homedir v1.0.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/go-testing-interface v1.0.0/go.mod h1:kRemZodwjscx+RGhAo8eIhFbs2+BFgRtFPeD/KE+zxI=
