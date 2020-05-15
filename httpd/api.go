@@ -7,6 +7,7 @@ import (
 
 	"github.com/miiniper/tgmsg_bot"
 
+	"k8s.io/api/apps/v1beta1"
 	v1 "k8s.io/api/core/v1"
 
 	"github.com/miiniper/loges"
@@ -56,7 +57,25 @@ func (s *Service) PodsCheck(w http.ResponseWriter, r *http.Request, ps httproute
 
 	}
 	w.Write([]byte("ok"))
-	return
+}
+
+func (s *Service) DepCheck(w http.ResponseWriter, r *http.Request, ps httprouter.Params) {
+	for _, ClusterCfg := range ClusterCfgs {
+		cli, _ := K8sCli(ClusterCfg.ConfigFile)
+		deps, _ := GetDeployment(cli)
+
+		for _, j := range deps.Items {
+			go func() {
+				if *j.Spec.Replicas != j.Status.ReadyReplicas {
+					msg := fmt.Sprintf("cluster :%s\n ns: %s\n dep: %s\n some pod is  notReady", ClusterCfg.ClusterName, j.ObjectMeta.Namespace, j.ObjectMeta.Name)
+					Bot.SendMsg(msg)
+				}
+			}()
+
+		}
+
+	}
+	w.Write([]byte("ok"))
 }
 
 func K8sCli(k8sCfg string) (*kubernetes.Clientset, error) {
@@ -83,6 +102,15 @@ func GetPod(cli *kubernetes.Clientset) (*v1.PodList, error) {
 	}
 	return podAll, nil
 
+}
+
+func GetDeployment(cli *kubernetes.Clientset) (*v1beta1.DeploymentList, error) {
+	dep, err := cli.AppsV1beta1().Deployments("").List(context.TODO(), metav1.ListOptions{})
+	if err != nil {
+		loges.Loges.Error("get pod info  is err:", zap.Error(err))
+		return nil, err
+	}
+	return dep, nil
 }
 
 func GetConfig() K8sConfigs {
